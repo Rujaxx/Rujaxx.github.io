@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rujan — Senior Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FAFAF8;
+      --ink: #1C1F26;
+      --ink-soft: #5B6270;
+      --accent: #2B6E63;
+      --accent-tint: #EDF2F0;
+      --line: #E3E5E0;
+      --gutter: #B7BCC2;
+      --mono: 'IBM Plex Mono', ui-monospace, monospace;
+      --sans: 'IBM Plex Sans', -apple-system, sans-serif;
+      --col-max: 720px;
+      --gutter-w: 44px;
+      --card-bg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .page {
+      max-width: calc(var(--col-max) + var(--gutter-w));
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Section shell with IDE-style line-number gutter */
+    .section {
+      display: grid;
+      grid-template-columns: var(--gutter-w) 1fr;
+      padding: 64px 0 8px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section:first-of-type {
+      border-top: none;
+    }
+
+    .section .ln {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--gutter);
+      padding-top: 4px;
+      user-select: none;
+    }
+
+    .comment {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--accent);
+      margin: 0 0 18px;
+    }
+
+    .comment::before {
+      content: "// ";
+      color: var(--gutter);
+    }
+
+    /* Hero */
+    .hero {
+      padding-top: 40px;
+    }
+
+    .hero .ln {
+      padding-top: 12px;
+    }
+
+    .prompt {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--ink-soft);
+      margin: 0 0 20px;
+    }
+
+    .prompt::before {
+      content: "$ ";
+      color: var(--accent);
+    }
+
+    h1 {
+      font-family: var(--mono);
+      font-size: clamp(28px, 4.4vw, 40px);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 0 0 6px;
+    }
+
+    .role {
+      font-size: 17px;
+      color: var(--ink-soft);
+      margin: 0 0 22px;
+    }
+
+    .role .divider {
+      color: var(--gutter);
+      margin: 0 8px;
+    }
+
+    .bio {
+      max-width: 56ch;
+      font-size: 16px;
+      color: var(--ink);
+      margin: 0 0 28px;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      font-family: var(--mono);
+      font-size: 13px;
+    }
+
+    .links a {
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 2px;
+      transition: border-color .15s ease, color .15s ease;
+    }
+
+    .links a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    h2 {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin: 0 0 28px;
+    }
+
+    /* Experience timeline */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    .role-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 20px;
+    }
+
+    .role-item time {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink-soft);
+      padding-top: 3px;
+    }
+
+    .role-item h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 2px;
+    }
+
+    .role-item .org {
+      font-size: 13px;
+      color: var(--accent);
+      font-family: var(--mono);
+      margin-bottom: 10px;
+    }
+
+    .role-item p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 14.5px;
+    }
+
+    .role-item ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--ink-soft);
+      font-size: 14.5px;
+    }
+
+    .role-item li {
+      margin-bottom: 4px;
+    }
+
+    blockquote {
+      font-size: 14.5px;
+      font-style: normal;
+      color: var(--ink);
+      background: var(--accent-tint);
+      border-left: 2px solid var(--accent);
+      padding: 12px 16px;
+      margin: 14px 0 0;
+    }
+
+    blockquote footer {
+      margin-top: 6px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+
+    blockquote footer::before {
+      content: "— ";
+    }
+
+    /* Projects */
+    .projects {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .project {
+      border: 1px solid var(--line);
+      padding: 22px 24px;
+      background: var(--card-bg);
+    }
+
+    .project-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .project h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .project .stack {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--accent);
+    }
+
+    .project p {
+      margin: 0 0 12px;
+      color: var(--ink-soft);
+      font-size: 14.5px;
+    }
+
+    .project .links a {
+      font-size: 12.5px;
+    }
+
+    .project ul {
+      margin: 0 0 14px;
+      padding-left: 18px;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+
+    .project ul li {
+      margin-bottom: 6px;
+    }
+
+    .project ul li b {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .ownership-tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      background: var(--accent-tint);
+      padding: 3px 8px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+    }
+
+    .subgroup-label {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin: 4px 0 4px;
+    }
+
+    .project.compact p {
+      margin-bottom: 0;
+    }
+
+    .project.compact:has(.links) p {
+      margin-bottom: 12px;
+    }
+
+    /* Skills */
+    .skill-groups {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 24px;
+    }
+
+    .skill-groups h4 {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin: 0 0 10px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 12px;
+      background: var(--accent-tint);
+      color: var(--accent);
+      padding: 4px 9px;
+      border-radius: 3px;
+    }
+
+    footer.site-footer {
+      padding: 48px 0 60px;
+      display: grid;
+      grid-template-columns: var(--gutter-w) 1fr;
+    }
+
+    footer.site-footer p {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink-soft);
+      margin: 0;
+    }
+
+    @media (max-width: 560px) {
+      .section {
+        grid-template-columns: 28px 1fr;
+        padding: 48px 0 8px;
+      }
+
+      footer.site-footer {
+        grid-template-columns: 28px 1fr;
+      }
+
+      .role-item {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .role-item time {
+        padding-top: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      * {
+        transition: none !important;
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0F1115;
+        --ink: #F3F4F6;
+        --ink-soft: #9CA3AF;
+        --accent: #4DB3A2;
+        --accent-tint: #172C28;
+        --line: #2A2D35;
+        --gutter: #626A7A;
+        --card-bg: #161920;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <!-- ===================== HERO ===================== -->
+    <section class="section hero">
+      <div class="ln">01</div>
+      <div>
+        <p class="prompt">whoami</p>
+        <h1>Rujan Shaikh</h1>
+        <p class="role">Node.js Developer<span class="divider">/</span>Full-Stack Engineer</p>
+        <p class="bio">
+          Backend developer who builds the complex logic underneath a product,
+          serverless media pipelines, real-time systems, and multi-tenant SaaS
+          architecture. I own projects end to end: system design, database
+          modeling, and implementation, not just the API layer.
+        </p>
+        <div class="links">
+          <a href="mailto:shaikhrujan@gmail.com">email</a>
+          <a href="tel:+917887926842">+91 7887926842</a>
+          <!-- REPLACE: paste your actual LinkedIn/GitHub profile URLs -->
+          <a href="#" target="_blank" rel="noopener">linkedin</a>
+          <a href="#" target="_blank" rel="noopener">github</a>
+          <span style="color: var(--gutter);">Latur, Maharashtra</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EXPERIENCE ===================== -->
+    <section class="section" id="experience">
+      <div class="ln">02</div>
+      <div>
+        <p class="comment">experience</p>
+        <h2>Where I've worked</h2>
+        <div class="timeline">
+
+          <div class="role-item">
+            <time>Dec 2021 — Present</time>
+            <div>
+              <h3>Software Engineer</h3>
+              <div class="org">Softprodigy Solutions · Remote</div>
+              <p>
+                4.6 years growing from backend engineer into a lead role spanning
+                SaaS, fintech, healthtech, and media-processing products, owning
+                architecture end to end while increasingly running the delivery side of projects too.
+              </p>
+              <ul>
+                <li>Led project teams from scoping through delivery on flagship builds, acting as the technical point of
+                  contact with stakeholders</li>
+                <li>Mentored interns and junior engineers, code review, onboarding, and day-to-day technical guidance
+                </li>
+                <li>Set architecture and database design across every project I've owned, balancing hands-on engineering
+                  with project-management responsibilities</li>
+                <li>Shipped systems across eight+ production products see selected work below</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PROJECTS ===================== -->
+    <section class="section" id="projects">
+      <div class="ln">03</div>
+      <div>
+        <p class="comment">projects</p>
+        <h2>Selected work</h2>
+
+        <p class="subgroup-label">Flagship builds, full ownership of architecture, data modeling &amp; implementation
+        </p>
+        <div class="projects">
+
+          <div class="project">
+            <span class="ownership-tag">architecture · database · backend</span>
+            <div class="project-head">
+              <h3>Apex Minds — Enterprise Mental Wellness SaaS</h3>
+              <span class="stack">NestJS · Fastify · PostgreSQL · Prisma · AWS (SQS, Lambda, S3, CloudFront, SES)</span>
+            </div>
+            <p>
+              Backend for an enterprise mental performance and wellness platform.
+              Owned the system design, database schema, and every service end to
+              end, from the multi-tenant SaaS model to the media pipeline.
+            </p>
+            <ul>
+              <li><b>Personalized audio &amp; HLS streaming:</b> SQS + Lambda + FFmpeg stitches coaching tracks,
+                background music, and per-user name pronunciations into millisecond-accurate mixes, output as HLS
+                streams and served via signed CloudFront URLs</li>
+              <li><b>Multi-tenant RBAC &amp; licensing:</b> designed the schema for corporate clients, license limits,
+                auto-locking on expiry, and a full plan-history/audit trail</li>
+              <li><b>Async job backbone:</b> SQS + SES email queueing with dead-letter queues, exponential backoff, and
+                signed webhook callbacks from Lambda</li>
+              <li><b>Program &amp; gamification engine:</b> modeled wellness/performance content pillars, sensory
+                personalization, pre/post-session analytics, streaks, levels, and badges</li>
+              <li><b>Timezone-aware reminders:</b> a cron daemon computing per-user local send times globally</li>
+            </ul>
+            <div class="links">
+              <a href="#" target="_blank" rel="noopener">details ↗</a>
+            </div>
+          </div>
+
+          <div class="project">
+            <span class="ownership-tag">architecture · database · backend</span>
+            <div class="project-head">
+              <h3>Baller App — Sports CRM &amp; Video Highlights Platform</h3>
+              <span class="stack">Express.js · MongoDB · Socket.io · Worker Threads · FFmpeg · AWS S3</span>
+            </div>
+            <p>
+              High-concurrency backend for sports tournament management, live
+              scoring, and video highlight generation. Owned the full data model
+              and system architecture, including every real-time and background
+              processing path.
+            </p>
+            <ul>
+              <li><b>Concurrency-safe video engine:</b> offloaded FFmpeg clipping/merging to Node worker threads so
+                heavy renders never block the event loop, streaming output straight to S3</li>
+              <li><b>Constraint-based league scheduler:</b> heuristic engine factoring travel distance (Google Maps
+                API), court/coach availability, and mandatory rest windows, with an interactive conflict resolver for
+                admins</li>
+              <li><b>Real-time scoreboard with offline sync:</b> Socket.io state broadcasting plus a buffering protocol
+                that reconstructs game timelines chronologically after connectivity drops</li>
+              <li><b>Drip notification system:</b> cron-driven, multi-channel (push/SMS/email) reminders with retry and
+                exponential backoff</li>
+              <li><b>Performance tuning:</b> compound MongoDB indexes and pre-aggregated leaderboards kept API responses
+                under 100ms</li>
+            </ul>
+            <div class="links">
+              <a href="#" target="_blank" rel="noopener">details ↗</a>
+            </div>
+          </div>
+
+          <div class="project">
+            <span class="ownership-tag">architecture · database · AI integration</span>
+            <div class="project-head">
+              <h3>ReqForgeAI — AI Requirements Analysis Generator</h3>
+              <span class="stack">React 19 · Vite · Redux Toolkit · Node.js/Express · MongoDB · Gemini 2.5 Flash ·
+                ChromaDB (RAG) · Cloudinary</span>
+            </div>
+            <p>
+              AI-powered SaaS tool that converts UI/UX screenshots into
+              structured requirements documentation functional specs,
+              business rules, and validation criteria in seconds. Built
+              solo, backend to frontend.
+            </p>
+            <ul>
+              <li><b>Visual RAG pipeline:</b> indexes analyzed screens in ChromaDB using Gemini embeddings, retrieving
+                contextually relevant screens so multi-screen flows (e.g. login → dashboard) stay consistent across a
+                project</li>
+              <li><b>Schema-enforced AI calls:</b> Gemini 2.5 Flash constrained to strict JSON schemas, guaranteeing
+                reliable parsing instead of unstructured text blobs</li>
+              <li><b>Automated cleanup cascades:</b> deleting a project or screenshot triggers cleanup across Cloudinary
+                and the vector store, keeping storage in sync</li>
+              <li><b>Native document export:</b> generates styled .docx files client-side plus rich-text clipboard copy
+                that pastes cleanly into Docs, Word, or Notion</li>
+              <li><b>Resilient UX:</b> async progress tracking through the analysis pipeline, with RTK Query
+                exponential-backoff retries handling cold starts up to 70s</li>
+            </ul>
+            <div class="links">
+              <a href="https://github.com/Rujaxx/reqforgeai" target="_blank" rel="noopener">github ↗</a>
+              <a href="https://reqforgeai.vercel.app" target="_blank" rel="noopener">live ↗</a>
+            </div>
+          </div>
+
+        </div>
+
+        <p class="subgroup-label" style="margin-top: 32px;">Also built</p>
+        <div class="projects">
+
+          <div class="project compact">
+            <div class="project-head">
+              <h3>Restaurant POS System</h3>
+              <span class="stack">NestJS · MongoDB · RBAC</span>
+            </div>
+            <p>
+              Real-time order processing and inventory management. Cut order
+              processing time 40%, improved inventory accuracy to 99.8%.
+            </p>
+          </div>
+
+          <div class="project compact">
+            <div class="project-head">
+              <h3>QMS — Hospital Queue Management</h3>
+              <span class="stack">NestJS · Prisma ORM · PostgreSQL · scikit-learn · Machine Learning</span>
+            </div>
+            <p>
+              Machine Learning (Random Forest) model predicting room occupancy at 89% accuracy,
+              cutting patient wait times 30%. Predicts patient waiting times based on the time of day, number of
+              patients ahead, number of doctors, and the specific doctor assigned.
+            </p>
+          </div>
+
+          <div class="project compact">
+            <div class="project-head">
+              <h3>Reel Builder</h3>
+              <span class="stack">AWS Lambda · FFmpeg · S3 · EFS · Cloudinary</span>
+            </div>
+            <p>
+              Serverless highlight-reel pipeline; migrating off Cloudinary to Lambda + EFS cut costs 97%. Downloads
+              recorded livestreams to Lambda, clips highlights based on scores, and merges them using FFmpeg and EFS for
+              fast video encoding.
+            </p>
+          </div>
+
+          <div class="project compact">
+            <div class="project-head">
+              <h3>JanjiKu — P2P Lending App</h3>
+              <span class="stack">NestJS · PostgreSQL · Stripe · WebSockets</span>
+            </div>
+            <p>
+              EMI lending platform with real-time chat and Stripe payments;
+              99.9% uptime, 25% lift in retention.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== OPEN SOURCE ===================== -->
+    <section class="section" id="open-source">
+      <div class="ln">04</div>
+      <div>
+        <p class="comment">open-source</p>
+        <h2>Open source</h2>
+        <div class="projects">
+
+          <div class="project compact">
+            <div class="project-head">
+              <h3>mongodb-js/mongodb-mcp-server</h3>
+              <span class="stack">MCP · TypeScript · Streamable HTTP</span>
+            </div>
+            <p>
+              Opened <a href="https://github.com/mongodb-js/mongodb-mcp-server/pull/257" target="_blank"
+                rel="noopener">PR #257</a>
+              adding HTTP/SSE transport support to MongoDB's official MCP
+              server, with new <code>--transportType</code> and
+              <code>--port</code> CLI arguments and Quick Start docs for
+              exposing the server over a network endpoint. A maintainer
+              credited the contribution and the team built the production
+              version on top of it streamable HTTP, expanded config, tests,
+              and telemetry in
+              <a href="https://github.com/mongodb-js/mongodb-mcp-server/pull/361" target="_blank" rel="noopener">PR
+                #361</a>.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SKILLS ===================== -->
+    <section class="section" id="skills">
+      <div class="ln">05</div>
+      <div>
+        <p class="comment">skills</p>
+        <h2>Key skills</h2>
+        <div class="skill-groups">
+          <div>
+            <h4>Languages</h4>
+            <div class="tag-row">
+              <span class="tag">JavaScript</span>
+              <span class="tag">TypeScript</span>
+            </div>
+          </div>
+          <div>
+            <h4>Backend &amp; Frameworks</h4>
+            <div class="tag-row">
+              <span class="tag">Node.js</span>
+              <span class="tag">Express.js</span>
+              <span class="tag">NestJS</span>
+              <span class="tag">Fastify</span>
+            </div>
+          </div>
+          <div>
+            <h4>Frontend</h4>
+            <div class="tag-row">
+              <span class="tag">React</span>
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+            </div>
+          </div>
+          <div>
+            <h4>Data &amp; Messaging</h4>
+            <div class="tag-row">
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">MongoDB</span>
+              <span class="tag">Redis</span>
+              <span class="tag">RabbitMQ</span>
+              <span class="tag">BullMQ</span>
+            </div>
+          </div>
+          <div>
+            <h4>Cloud &amp; DevOps</h4>
+            <div class="tag-row">
+              <span class="tag">AWS</span>
+              <span class="tag">GCP</span>
+              <span class="tag">Docker</span>
+              <span class="tag">Kubernetes</span>
+              <span class="tag">GitHub Actions</span>
+            </div>
+          </div>
+          <div>
+            <h4>Monitoring &amp; Testing</h4>
+            <div class="tag-row">
+              <span class="tag">Prometheus</span>
+              <span class="tag">Grafana</span>
+              <span class="tag">Postman</span>
+              <span class="tag">Swagger / OpenAPI</span>
+              <span class="tag">Jest</span>
+            </div>
+          </div>
+          <div>
+            <h4>Other</h4>
+            <div class="tag-row">
+              <span class="tag">FFmpeg</span>
+              <span class="tag">Cloudinary</span>
+              <span class="tag">Stripe</span>
+              <span class="tag">PayPal</span>
+              <span class="tag">Razorpay</span>
+              <span class="tag">WebSockets</span>
+              <span class="tag">JWT / OAuth</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EDUCATION ===================== -->
+    <section class="section" id="education">
+      <div class="ln">06</div>
+      <div>
+        <p class="comment">education</p>
+        <h2>Education &amp; certifications</h2>
+        <div class="timeline">
+
+          <div class="role-item">
+            <time>Aug 2020</time>
+            <div>
+              <h3>Bachelor of Engineering</h3>
+              <div class="org">Pune University · Pune</div>
+            </div>
+          </div>
+
+          <div class="role-item">
+            <time>Sep 2021</time>
+            <div>
+              <h3>Product Engineer Bootcamp (MERN)</h3>
+              <div class="org">SOAL Bootcamp · Hyderabad</div>
+            </div>
+          </div>
+
+          <div class="role-item">
+            <time>Certs</time>
+            <div>
+              <h3>Certifications</h3>
+              <p>
+                Finalist, BuildFest 2025 Hackathon · Getting Started with Git and
+                GitHub · Node.js &amp; MongoDB: Developing Back-End Database
+                Applications · Developing Back-End Apps with Node.js and Express
+                · Introduction to Software Engineering, all via Coursera
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="site-footer">
+      <div class="ln">07</div>
+      <p>© <span id="year"></span> Rujan Shaikh — built with plain HTML &amp; CSS</p>
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+
+</html>
